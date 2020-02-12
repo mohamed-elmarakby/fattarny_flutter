@@ -8,7 +8,6 @@ import 'package:flutter/material.dart';
 import 'theme.dart';
 import 'package:fattarny/theme.dart';
 
-int x = 1;
 void main() => runApp(MyApp());
 
 class MyApp extends StatelessWidget {
