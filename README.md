@@ -5,7 +5,7 @@ Fattarny is a flutter mobile application compatible with both IOS and Android, T
 ## Screens from Fattarny
 
  1. Login Page ![User login pagae](Screenshots/1.Login%20Page.jpg)
-  1.User login using his organization ID, and his password.
+ User login using his organization ID, and his password.
  
  2. Registration Page ![User registration page](Screenshots/2.Registeration%20Page.jpg)
  User register using his organization ID, password, and work/personal email address.
