@@ -14,17 +14,15 @@ class LoginPage extends StatefulWidget {
   _LoginPageState createState() => _LoginPageState();
 }
 
-Future<bool> saveUserID(id) async {
+saveUserID(id) async {
   SharedPreferences preferences = await SharedPreferences.getInstance();
-  preferences.setString('id', id);
-  preferences.setBool('logged', true);
-  return preferences.commit();
+  await preferences.setString('id', id);
+  await preferences.setBool('logged', true);
 }
 
-Future<bool> saveUserPassword(password) async {
+saveUserPassword(password) async {
   SharedPreferences preferences = await SharedPreferences.getInstance();
-  preferences.setString('password', password);
-  return preferences.commit();
+  await preferences.setString('password', password);
 }
 
 class _LoginPageState extends State<LoginPage> {

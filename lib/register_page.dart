@@ -9,11 +9,10 @@ import 'package:toast/toast.dart';
 import 'theme.dart';
 import 'widgets/textfieldFattarny.dart';
 
-Future<bool> saveUserID(id) async {
+saveUserID(id) async {
   SharedPreferences preferences = await SharedPreferences.getInstance();
-  preferences.setString('id', id);
-  preferences.setBool('logged', true);
-  return preferences.commit();
+  await preferences.setString('id', id);
+  await preferences.setBool('logged', true);
 }
 
 class RegisterPage extends StatefulWidget {

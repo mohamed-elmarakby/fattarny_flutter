@@ -136,10 +136,9 @@ class _LoadMenuState extends State<LoadMenu> {
     return 'Success';
   }
 
-  Future<bool> saveUserVoting(usersVote) async {
+  saveUserVoting(usersVote) async {
     SharedPreferences preferences = await SharedPreferences.getInstance();
-    preferences.setBool('vote', usersVote);
-    return preferences.commit();
+    await preferences.setBool('vote', usersVote);
   }
 
   @override
@@ -290,16 +289,14 @@ class MenuList extends StatefulWidget {
   _MenuListState createState() => _MenuListState();
 }
 
-Future<bool> saveUserVoting(usersVote) async {
+saveUserVoting(usersVote) async {
   SharedPreferences preferences = await SharedPreferences.getInstance();
-  preferences.setBool('vote', usersVote);
-  return preferences.commit();
+  await preferences.setBool('vote', usersVote);
 }
 
-Future<bool> saveUserOrder(usersVote) async {
+saveUserOrder(usersVote) async {
   SharedPreferences preferences = await SharedPreferences.getInstance();
-  preferences.setBool('order', usersVote);
-  return preferences.commit();
+  await preferences.setBool('order', usersVote);
 }
 
 Future<bool> getUserOrder() async {

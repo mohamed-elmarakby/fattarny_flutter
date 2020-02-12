@@ -411,7 +411,7 @@ class _VotingPageState extends State<VotingPage> {
                         hours: differenceHours, minutes: differenceMinutes),
                     builder: (BuildContext ctx, String remaining) {
                       return Text(
-                        remaining + ' left to vote!',
+                        remaining + '\nleft to vote!',
                         style: TextStyle(fontSize: 32, color: Colors.black),
                       );
                     },
@@ -480,16 +480,14 @@ class RestaurantsList extends StatefulWidget {
   _RestaurantsListState createState() => _RestaurantsListState();
 }
 
-Future<bool> saveUserVoting(usersVote) async {
+saveUserVoting(usersVote) async {
   SharedPreferences preferences = await SharedPreferences.getInstance();
-  preferences.setBool('vote', usersVote);
-  return preferences.commit();
+  await preferences.setBool('vote', usersVote);
 }
 
-Future<bool> saveVoteDate(usersVote) async {
+saveVoteDate(usersVote) async {
   SharedPreferences preferences = await SharedPreferences.getInstance();
-  preferences.setString('date', todayDate);
-  return preferences.commit();
+  await preferences.setString('date', todayDate);
 }
 
 class _RestaurantsListState extends State<RestaurantsList> {
