@@ -252,6 +252,7 @@ class _GetTimerTimeState extends State<GetTimerTime> {
           }
         });
       } else {
+        inVoteRegion = false;
         saveUserOrder(false);
         BasedOnTimePage = LoadMenu();
       }
@@ -410,9 +411,18 @@ class _VotingPageState extends State<VotingPage> {
                     duration: Duration(
                         hours: differenceHours, minutes: differenceMinutes),
                     builder: (BuildContext ctx, String remaining) {
-                      return Text(
-                        remaining + '\nleft to vote!',
-                        style: TextStyle(fontSize: 32, color: Colors.black),
+                      return Column(
+                        mainAxisAlignment: MainAxisAlignment.center,
+                        children: <Widget>[
+                          Text(
+                            remaining,
+                            style: TextStyle(fontSize: 32, color: Colors.black),
+                          ),
+                          Divider(),
+                          Text('Left to vote',
+                              style:
+                                  TextStyle(fontSize: 18, color: Colors.black))
+                        ],
                       );
                     },
                   ),

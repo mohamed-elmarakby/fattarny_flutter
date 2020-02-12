@@ -368,7 +368,12 @@ class _MenuListState extends State<MenuList> {
                   child: Container(
                     width: MediaQuery.of(context).size.width / 2,
                     child: RaisedButton(
-                      color: basicTheme().primaryColor,
+                      color: basicTheme().accentColor,
+                      shape: RoundedRectangleBorder(
+                          borderRadius: BorderRadius.only(
+                              topLeft: Radius.circular(5.0),
+                              bottomLeft: Radius.circular(15.0),
+                              topRight: Radius.circular(15.0))),
                       elevation: 3,
                       disabledElevation: 3,
                       onPressed: isButtonDisabled
@@ -472,7 +477,7 @@ class _MenuListState extends State<MenuList> {
                 children: <Widget>[
                   Text(
                     'Your Order Has Been Submitted',
-                    style: TextStyle(color: Colors.black, fontSize: 32),
+                    style: TextStyle(color: Colors.black, fontSize: 24),
                   ),
                   Text(
                     'Please pay your adminstrator',

@@ -122,8 +122,14 @@ class _LoginPageState extends State<LoginPage> {
                 height: 5,
               ),
               Container(
-                width: MediaQuery.of(context).size.width / 3,
+                width: MediaQuery.of(context).size.width / 2,
                 child: RaisedButton(
+                  color: basicTheme().accentColor,
+                  shape: RoundedRectangleBorder(
+                      borderRadius: BorderRadius.only(
+                          topLeft: Radius.circular(5.0),
+                          bottomLeft: Radius.circular(15.0),
+                          topRight: Radius.circular(15.0))),
                   splashColor: basicTheme().accentColor,
                   onPressed: () {
                     idController.text.trim().isNotEmpty

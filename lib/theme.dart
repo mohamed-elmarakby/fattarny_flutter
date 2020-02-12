@@ -4,25 +4,33 @@ ThemeData basicTheme() {
   TextTheme _basicTextTheme(TextTheme base) {
     return base.copyWith(
         headline: base.headline.copyWith(
+          fontFamily: 'Fattarny',
           fontSize: 16.0,
           color: Color(0xFFFFFFFF),
         ),
         title: base.title.copyWith(fontSize: 18.0, color: Colors.red),
         display1: base.headline.copyWith(
+          fontFamily: 'Fattarny',
           fontSize: 24.0,
           color: Colors.white,
         ),
         display2: base.headline.copyWith(
+          fontFamily: 'Fattarny',
           fontSize: 22.0,
           color: Colors.grey,
         ),
         caption: base.caption.copyWith(
+          fontFamily: 'Fattarny',
           color: Color(0xFFCCC5AF),
         ),
         body1: base.body1.copyWith(
+          fontFamily: 'Fattarny',
           color: Colors.white,
         ),
-        overline: base.overline.copyWith(color: Color(0xFFFFC107)));
+        overline: base.overline.copyWith(
+          color: Color(0xFFFFC107),
+          fontFamily: 'Fattarny',
+        ));
   }
 
   final ThemeData base = ThemeData.light();

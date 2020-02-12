@@ -1,7 +1,6 @@
 import 'dart:convert';
 
 import 'package:fattarny/login_page.dart';
-import 'package:fattarny/vote_page.dart';
 import 'package:flutter/material.dart';
 import 'package:http/http.dart' as http;
 import 'package:shared_preferences/shared_preferences.dart';
@@ -105,8 +104,14 @@ class _RegisterPageState extends State<RegisterPage> {
                 iconNeeded: Icons.email,
               ),
               Container(
-                width: MediaQuery.of(context).size.width / 3,
+                width: MediaQuery.of(context).size.width / 2,
                 child: RaisedButton(
+                  color: basicTheme().accentColor,
+                  shape: RoundedRectangleBorder(
+                      borderRadius: BorderRadius.only(
+                          topLeft: Radius.circular(5.0),
+                          bottomLeft: Radius.circular(15.0),
+                          topRight: Radius.circular(15.0))),
                   splashColor: basicTheme().accentColor,
                   onPressed: () {
                     setState(() {

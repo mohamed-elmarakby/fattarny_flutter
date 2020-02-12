@@ -1,4 +1,3 @@
-import 'package:fattarny/menu_Page.dart';
 import 'package:fattarny/vote_page.dart';
 import 'package:flutter/services.dart';
 import 'package:shared_preferences/shared_preferences.dart';
