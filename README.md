@@ -1,16 +1,8 @@
-# fattarny
+# Fattarny
 
-A new Flutter project.
+Fattarny is a flutter mobile application compatible with both IOS and Android, That aims to ***automate*** the process of food ordering in a company or an organization by voting on restaurants and the most voted one will be chosen for this day's order, it uses flutter as front end, Node.js and MongoDB for both backend and database.
 
-## Getting Started
+## Screens from Fattarny
 
-This project is a starting point for a Flutter application.
-
-A few resources to get you started if this is your first Flutter project:
-
-- [Lab: Write your first Flutter app](https://flutter.dev/docs/get-started/codelab)
-- [Cookbook: Useful Flutter samples](https://flutter.dev/docs/cookbook)
-
-For help getting started with Flutter, view our
-[online documentation](https://flutter.dev/docs), which offers tutorials,
-samples, guidance on mobile development, and a full API reference.
+ 1. Login Page ![User Login Pagae](https://drive.google.com/open?id=1saOtQmikhhi5DKWrZdaP4FkYscMlUj29)
+ 2. Registration Page ![User Registration Page](https://drive.google.com/open?id=1PL4WiGFSMG2JfLM_rpELumhnr4UgtKy0)
