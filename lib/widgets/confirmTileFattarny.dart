@@ -38,7 +38,7 @@ class _ConfirmingUserTileState extends State<ConfirmingUserTile> {
               style: TextStyle(fontSize: 20.0, fontWeight: FontWeight.bold),
             ),
             trailing: Text(
-              widget.totalPrice_.toString() + ' L.E.',
+              widget.totalPrice_.toString(),
               style: basicTheme().textTheme.title.apply(color: Colors.green),
             ),
             leading: CircleAvatar(

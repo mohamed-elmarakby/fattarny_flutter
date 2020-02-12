@@ -1,5 +1,5 @@
+import 'package:fattarny/confirm_orders_page.dart';
 import 'package:fattarny/globals/global.dart' as globals;
-import 'package:fattarny/summaryOfOrders.dart';
 import 'dart:convert';
 import 'package:fattarny/theme.dart';
 import 'package:fattarny/vote_page.dart';
@@ -10,57 +10,61 @@ import 'package:flutter/services.dart';
 import 'package:flutter_spinkit/flutter_spinkit.dart';
 import 'package:http/http.dart' as http;
 
-Future<List<Order>> fetchOrders(http.Client client) async {
-  final response = await client.get(
-      'https://fattarny.herokuapp.com/orders/get_all_paid/${globals.globalTodayDate}/false',
-      headers: {"Accept": "application/json"});
-
-  // Use the compute function to run parseOrders in a separate isolate.
-  return compute(parseOrders, response.body);
-}
-
-// A function that converts a response body into a List<Order>.
-List<Order> parseOrders(String responseBody) {
-  final parsed = jsonDecode(responseBody).cast<Map<String, dynamic>>();
-
-  return parsed.map<Order>((json) => Order.fromJson(json)).toList();
-}
-
-class Order {
-  final int totalPrice;
-  final String userid;
-  final String generatedId;
-  final bool isConfirmPay;
-
-  Order(
-      {this.generatedId,
-      this.userid,
-      this.totalPrice,
-      this.isConfirmPay = false});
-
-  factory Order.fromJson(Map<String, dynamic> json) {
-    return Order(
-      generatedId: json['_id'] as String,
-      userid: json['user_id'] as String,
-      totalPrice: json['total_price'] as int,
-      isConfirmPay: json['is_paid'] as bool,
-    );
+class foodItemSummary {
+  String name;
+  int id, restaurantid, price;
+  foodItemSummary.fromJson(Map json) {
+    this.name = json['name'];
+    this.id = json['id'];
+    this.restaurantid = json['restaurant_id'];
+    this.price = json['price'];
   }
 }
 
-class ConfirmOrdersPage extends StatefulWidget {
-  @override
-  _ConfirmOrdersPageState createState() => _ConfirmOrdersPageState();
+class foodWithQuantity {
+  foodItemSummary item;
+  int count;
+  foodWithQuantity.fromJson(Map json) {
+    this.count = json['count'];
+    this.item = foodItemSummary.fromJson(json['item']);
+  }
 }
 
-class _ConfirmOrdersPageState extends State<ConfirmOrdersPage> {
+Future<List<foodWithQuantity>> fetchFoodWithQuantity(http.Client client) async {
+  final response = await client.get(
+      'https://fattarny.herokuapp.com/orders/orders_summary/${globals.globalTodayDate}',
+      headers: {"Accept": "application/json"});
+
+  // var responseMap = json.decode(response.body).cast<Map<String, dynamic>>();
+  // List<foodWithQuantity> summaryList = responseMap
+  // .map<foodWithQuantity>((json) => foodWithQuantity.fromJson(json))
+  // .toList();
+  // Use the compute function to run parseOrders in a separate isolate.
+  return compute(parseFoodWithQuantity, response.body);
+}
+
+// A function that converts a response body into a List<Order>.
+List<foodWithQuantity> parseFoodWithQuantity(String responseBody) {
+  final parsed = jsonDecode(responseBody).cast<Map<String, dynamic>>();
+
+  return parsed
+      .map<foodWithQuantity>((json) => foodWithQuantity.fromJson(json))
+      .toList();
+}
+
+class SummaryOfOrders extends StatefulWidget {
+  @override
+  _SummaryOfOrdersState createState() => _SummaryOfOrdersState();
+}
+
+class _SummaryOfOrdersState extends State<SummaryOfOrders> {
   @override
   Widget build(BuildContext context) {
     return SafeArea(
       child: WillPopScope(
         child: Scaffold(
-          body: FutureBuilder<List<Order>>(
-            future: fetchOrders(http.Client()),
+          body: FutureBuilder<List<foodWithQuantity>>(
+            future: fetchFoodWithQuantity(http.Client()),
             builder: (context, snapshot) {
               if (snapshot.hasError) print(snapshot.error);
 
@@ -75,7 +79,7 @@ class _ConfirmOrdersPageState extends State<ConfirmOrdersPage> {
                           color: basicTheme().primaryColor,
                         ),
                         Text(
-                          '\nLoading Orders..',
+                          '\nLoading Summary..',
                           style: TextStyle(
                               color: basicTheme().primaryColor,
                               fontWeight: FontWeight.bold,
@@ -115,7 +119,7 @@ class _ConfirmOrdersPageState extends State<ConfirmOrdersPage> {
 }
 
 class OrdersList extends StatefulWidget {
-  final List<Order> orders;
+  final List<foodWithQuantity> orders;
   OrdersList({Key key, this.orders}) : super(key: key);
 
   @override
@@ -130,7 +134,7 @@ class _OrdersListState extends State<OrdersList> {
       onWillPop: null,
       child: Scaffold(
         appBar: AppBar(
-          title: Text('Orders Confirmation'),
+          title: Text('Summary of orders'),
           centerTitle: true,
           actions: <Widget>[
             IconButton(
@@ -144,17 +148,6 @@ class _OrdersListState extends State<OrdersList> {
                     }),
                   );
                 }),
-            IconButton(
-                icon: Icon(Icons.check_circle),
-                onPressed: () {
-                  Navigator.pop(context);
-                  Navigator.push(
-                    context,
-                    MaterialPageRoute(builder: (context) {
-                      return SummaryOfOrders();
-                    }),
-                  );
-                })
           ],
           automaticallyImplyLeading: false,
           leading: IconButton(
@@ -176,10 +169,8 @@ class _OrdersListState extends State<OrdersList> {
               return Padding(
                 padding: const EdgeInsets.only(right: 2, left: 2, bottom: 5),
                 child: ConfirmingUserTile(
-                  generatedID: widget.orders[index].generatedId,
-                  isPaid_: widget.orders[index].isConfirmPay,
-                  totalPrice_: widget.orders[index].totalPrice,
-                  userId_: widget.orders[index].userid,
+                  userId_: widget.orders[index].item.name,
+                  totalPrice_: widget.orders[index].count,
                 ),
               );
             }),
