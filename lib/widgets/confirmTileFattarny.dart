@@ -8,8 +8,13 @@ class ConfirmingUserTile extends StatefulWidget {
   final String userId_;
   final int totalPrice_;
   final bool isPaid_;
+  final bool paying;
   ConfirmingUserTile(
-      {this.generatedID, this.totalPrice_, this.userId_, this.isPaid_});
+      {this.generatedID,
+      this.totalPrice_,
+      this.userId_,
+      this.isPaid_,
+      this.paying = false});
 
   @override
   _ConfirmingUserTileState createState() => _ConfirmingUserTileState();
@@ -33,23 +38,39 @@ class _ConfirmingUserTileState extends State<ConfirmingUserTile> {
     return Card(
         elevation: 8.0,
         child: ListTile(
-            title: Text(
-              widget.userId_,
-              style: TextStyle(fontSize: 20.0, fontWeight: FontWeight.bold),
-            ),
-            trailing: Text(
-              widget.totalPrice_.toString(),
-              style: basicTheme().textTheme.title.apply(color: Colors.green),
-            ),
-            leading: CircleAvatar(
-              backgroundColor: Colors.green,
-              child: IconButton(
-                color: Colors.white,
-                icon: Icon(Icons.check),
-                onPressed: () {
-                  paying(widget.generatedID);
-                },
-              ),
-            )));
+            title: widget.paying
+                ? Text(
+                    'User ID: ' + widget.userId_,
+                    style:
+                        TextStyle(fontSize: 20.0, fontWeight: FontWeight.bold),
+                  )
+                : Text(
+                    widget.userId_,
+                    style:
+                        TextStyle(fontSize: 20.0, fontWeight: FontWeight.bold),
+                  ),
+            trailing: widget.paying
+                ? Text(
+                    widget.totalPrice_.toString() + ' L.E.',
+                    style:
+                        basicTheme().textTheme.title.apply(color: Colors.green),
+                  )
+                : Text(
+                    'Quantity: ' + widget.totalPrice_.toString(),
+                    style:
+                        basicTheme().textTheme.title.apply(color: Colors.green),
+                  ),
+            leading: widget.paying
+                ? CircleAvatar(
+                    backgroundColor: Colors.green,
+                    child: IconButton(
+                      color: Colors.white,
+                      icon: Icon(Icons.check),
+                      onPressed: () {
+                        paying(widget.generatedID);
+                      },
+                    ),
+                  )
+                : null));
   }
 }

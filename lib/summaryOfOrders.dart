@@ -169,6 +169,7 @@ class _OrdersListState extends State<OrdersList> {
               return Padding(
                 padding: const EdgeInsets.only(right: 2, left: 2, bottom: 5),
                 child: ConfirmingUserTile(
+                  paying: false,
                   userId_: widget.orders[index].item.name,
                   totalPrice_: widget.orders[index].count,
                 ),
